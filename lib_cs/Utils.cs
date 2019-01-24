@@ -4,11 +4,6 @@ using System.Linq.Expressions;
 
 namespace Utils {
 
-    public class BinaryTree
-    {
-
-    }
-
     public class PolymorphicGraph<T> 
     {
         private Dictionary<ulong, List<ulong>> _AdjacencyList { get; set; }
@@ -61,6 +56,12 @@ namespace Utils {
 
         public void ConfigureBalancedBinaryTree()
         {
+            if (this._Nodes.Count == 0)
+            {
+                Console.WriteLine("Node List Empty");
+                return;
+            }
+
             ulong left(ulong n) {
                 return n * 2 + 1;
             };
@@ -83,25 +84,24 @@ namespace Utils {
              */
             
             var al = new Dictionary<ulong, List<ulong>>();
-            foreach(Node n in this._Nodes)
+            al[0] = new List<ulong>();
+            for(ulong rootId = 0; rootId < (ulong)this._Nodes.Count; rootId++)
             {
-                al[n.Id] = new List<ulong>();
+                ulong leftId = left(rootId);
+                ulong rightId = right(rootId);
 
-                if(n.Id > 0 && (n.Id % 2 != 0))
+                if(leftId < (ulong)this._Nodes.Count)
                 {
-                    al[n.Id].Add((n.Id - 1) / 2);
+                    al[leftId] = new List<ulong>();
+                    al[rootId].Add(leftId);
+                    al[leftId].Add(rootId);
+
                 }
-                if(n.Id > 0 && (n.Id % 2 == 0))
+                if(rightId < (ulong)this._Nodes.Count)
                 {
-                    al[n.Id].Add((n.Id - 2) / 2);
-                }
-                if(left(n.Id) < (ulong)this._Nodes.Count)
-                {
-                    al[n.Id].Add(left(n.Id));
-                }
-                if(right(n.Id) < (ulong)this._Nodes.Count)
-                {
-                    al[n.Id].Add(right(n.Id));
+                    al[rightId] = new List<ulong>();
+                    al[rootId].Add(rightId);
+                    al[rightId].Add(rootId);
                 }             
             }
             this._AdjacencyList = al;
