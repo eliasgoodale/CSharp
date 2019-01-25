@@ -8,6 +8,7 @@ namespace Utils {
     {
         private Dictionary<ulong, List<ulong>> _AdjacencyList { get; set; }
         private List<Node> _Nodes { get; set; }
+        private string Configuration {get; set;}
 
         private class Node
         {
@@ -42,6 +43,17 @@ namespace Utils {
             this._AdjacencyList[yId].Add(xId);
         }
 
+        public bool Configure(string config)
+        {
+            if (this._Nodes.Count == 0)
+            {
+                Console.WriteLine("Node List Empty");
+                return false;
+            }
+            this.Configuration = config;
+            return true;
+        }
+
         public override string ToString()
         {
             string ret = "";
@@ -56,11 +68,7 @@ namespace Utils {
 
         public void ConfigureBalancedBinaryTree()
         {
-            if (this._Nodes.Count == 0)
-            {
-                Console.WriteLine("Node List Empty");
-                return;
-            }
+            this.Configure("BalancedBinaryTree");
 
             ulong left(ulong n) {
                 return n * 2 + 1;
@@ -106,5 +114,42 @@ namespace Utils {
             }
             this._AdjacencyList = al;
         }
-    }
+
+
+        /**
+            https://www.geeksforgeeks.org/csharp-program-for-dijkstras-shortest-path-algorithm-greedy-algo-7/
+            refactor with dijkstras 
+         */
+        public List<ulong> FindShortestPath(ulong xId, ulong yId)
+        {
+            List<ulong> ajdacentIds = this._AdjacencyList[xId];
+            var paths = new List<List<ulong>>(adjacentIds.Count);
+
+            bool findpath(List<ulong> l, ulong startId, ulong destId)
+            {
+                var neighbors = this._AdjacencyList[startId];
+                l.Add
+                if (neightbors.Contains(destId))
+                {
+                    l.Add(destId);
+                    return true;
+                }
+                else
+                {
+                    foreach(ulong n in neighbors)
+                    {
+                        l.Add(n)
+                    }
+                }
+
+
+                return 
+            }
+
+            for(int i = 0; i < adjacentIds.Count; i++)
+            {
+                paths[i] = 
+            }
+
+        }
 }
